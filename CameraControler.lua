@@ -1,6 +1,6 @@
 --[[
-		CameraControler
-		By InstantStudio
+	CameraControler
+	By InstantStudio
 ]]--
 local CameraControler = {}
 local CameraEvents = {
