@@ -1,6 +1,6 @@
 --[[
-	CameraControler
-	By InstantStudio
+		CameraControler
+		By InstantStudio
 ]]--
 local CameraControler = {}
 local CameraEvents = {
@@ -20,10 +20,10 @@ function CameraControler:CreateLoop(CFrameLocation)
 	for i, v in pairs(CFrameLocation) do
 		local Table = {
 			['Location'] = v['Location'],
-			['Number'] = v['Number'],
+			['Number'] = i,
 			['TweenStyle'] = v['TweenStyle']
 		}
-		table.insert(CameraControlerLoopList, v[1], Table)
+		table.insert(CameraControlerLoopList, Table.Number, Table)
 	end
 	return CameraControlerLoopList
 end
@@ -32,22 +32,14 @@ end
 --#Creates a CFrameLocation Object
 --&CFrameValue(CFrame), Number(Id in list *Optional), TweenStyle(TweenInfo *Optional)
 --%Returns: CFrameLocation
-function CameraControler:CreateCFrameLocation(CFrameValue, Number, TweenStyle)
+function CameraControler:CreateCFrameLocation(CFrameValue, TweenStyle)
 	local Issues = {false, 'Cannot Create CFrameLocation'}
-	if CFrameValue ~= CFrame then
-		Issues[1] = true
-		Issues[2] = Issues[2] .. '; CFrameValue is not a CFrame'
-	end
-	if type(Number) ~= 'number' then
-		Issues[2] = Issues[2] .. '; CFrameValue is not a CFrame'
-	end
 	if TweenStyle ~= TweenInfo then
-		Issues[2] = Issues[2] .. '; CFrameValue is not a CFrame'
+		Issues[2] = Issues[2] .. '; TweenStyle is not inputed using default'
 		TweenStyle = TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0)
 	end
 	if Issues[1] == false then
 		return {
-			['Number'] = Number,
 			['Location'] = CFrameValue,
 			['TweenStyle'] = TweenStyle
 		}
@@ -95,8 +87,7 @@ function CameraControler.SetCameraLoop(CameraControlerLoopList)
 				shouldBreak = true
 			end)
 			while wait() do
-				if shouldBreak == true then break end
-				
+
 				for i, v in pairs(CameraControlerLoopList) do
 					local Location = v['Location']
 					local Number = v['Number']
@@ -105,8 +96,9 @@ function CameraControler.SetCameraLoop(CameraControlerLoopList)
 						CFrame = Location
 					}
 					local Tween = TweenService:Create(CurrentCamera, TweenStyle, Goal)
+					if shouldBreak == true then Tween:Cancel() break end
 					Tween:Play()
-					Tween:Wait()
+					Tween.Completed:Wait()
 				end
 			end
 		end)
