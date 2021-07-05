@@ -1,11 +1,11 @@
 --[[
 		CameraControler
-		By InstantStudio
+		Version 1.1
+		
+		Github: instantstudio/cameracontroler
 ]]--
 local CameraControler = {}
 local CameraEvents = {
-	FinishedLoop = script.CameraFinishedLoop,
-	Changed = script.CameraChanged,
 	Disable = script.Disable
 }
 local TweenService = game:GetService("TweenService")
