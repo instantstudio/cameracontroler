@@ -4,4 +4,4 @@
 ]]--
 
 local CameraControlerModuleLocation = game
-a=Instance.new("BindableEvent",CameraControlerModuleLocation)e.Name='Disable'
+a=Instance.new("BindableEvent", CameraControlerModuleLocation) a.Name='Disable'
