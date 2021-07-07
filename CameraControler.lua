@@ -11,23 +11,6 @@ local CameraEvents = {
 local TweenService = game:GetService("TweenService")
 local CurrentCamera = workspace.CurrentCamera
 
---@CameraControler:CreateLoop
---#Creates a loop Object
---&CFrameLocation(A Location Created by CameraControler:CreateCFrameLocation)
---%Returns: CameraControlerLoopList
-function CameraControler:CreateLoop(CFrameLocation)
-	local CameraControlerLoopList = {}
-	for i, v in pairs(CFrameLocation) do
-		local Table = {
-			['Location'] = v['Location'],
-			['Number'] = i,
-			['TweenStyle'] = v['TweenStyle']
-		}
-		table.insert(CameraControlerLoopList, Table.Number, Table)
-	end
-	return CameraControlerLoopList
-end
-
 --@CameraControler:CreateCFrameLocation
 --#Creates a CFrameLocation Object
 --&CFrameValue(CFrame), Number(Id in list *Optional), TweenStyle(TweenInfo *Optional)
@@ -46,6 +29,23 @@ function CameraControler:CreateCFrameLocation(CFrameValue, TweenStyle)
 	else
 		return error(Issues[2])
 	end
+end
+
+--@CameraControler:CreateLoop
+--#Creates a loop Object
+--&CFrameLocation(A Location Created by CameraControler:CreateCFrameLocation)
+--%Returns: CameraControlerLoopList
+function CameraControler:CreateLoop(CFrameLocation)
+	local CameraControlerLoopList = {}
+	for i, v in pairs(CFrameLocation) do
+		local Table = {
+			['Location'] = v['Location'],
+			['Number'] = i,
+			['TweenStyle'] = v['TweenStyle']
+		}
+		table.insert(CameraControlerLoopList, Table.Number, Table)
+	end
+	return CameraControlerLoopList
 end
 
 --@CameraControler.SetCameraLocation
